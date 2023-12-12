@@ -84,7 +84,13 @@ vim.keymap.set("n", "<leader>ca", function()
     vim.lsp.buf.code_action()
 end)
 
-vim.keymap.set("n", "<leader><leader>", ":!clang++ -o %:r.exe %<CR>")
+vim.keymap.set("n", "<leader><leader>", function()
+    if package.config.sub(1, 1) == "\\" then
+        return "!clang++ -o %:r.exe %<CR>"
+    else
+        return "!clang++ -o %:r.out %<CR>"
+    end
+end)
 
 vim.keymap.set("n", "<leader>tc", function()
     require("neotest").run.run()
