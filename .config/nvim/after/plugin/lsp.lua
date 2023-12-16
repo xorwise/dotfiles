@@ -1,7 +1,9 @@
-local lsp_zero = require("lsp-zero")
+local lsp = require("lsp-zero")
 
-lsp_zero.on_attach(function(client, bufnr)
-    lsp_zero.default_keymaps({ buffer = bufnr })
+lsp.preset("recommended")
+
+lsp.on_attach(function(client, bufnr)
+    lsp.default_keymaps({ buffer = bufnr })
 end)
 
 require("mason").setup({})
@@ -16,8 +18,8 @@ require("mason-lspconfig").setup({
     },
     automatic_installation = true,
     handlers = {
-        lsp_zero.default_setup,
-    },
+        lsp.default_setup,
+    }
 })
 
 require("lspconfig").lua_ls.setup({
@@ -30,7 +32,7 @@ require("lspconfig").lua_ls.setup({
     },
 })
 require("lspconfig").pyright.setup({
-    on_attach = lsp_zero.on_attach,
+    on_attach = lsp.on_attach,
     settings = {
         python = {
             analysis = {
