@@ -1,27 +1,11 @@
 return {
     {
         {
-            "VonHeikemen/lsp-zero.nvim",
-            lazy = true,
-            config = function()
-                local lsp = require("lsp-zero")
-
-                lsp.preset("recommended")
-
-                lsp.on_attach(function(client, bufnr)
-                    lsp.default_keymaps({ buffer = bufnr })
-                end)
-            end,
-        },
-
-        --- Uncomment these if you want to manage LSP servers from neovim
-        {
             "williamboman/mason-lspconfig.nvim",
             dependencies = {
                 "williamboman/mason.nvim",
             },
             config = function()
-                local lsp = require("lsp-zero")
                 require("mason").setup({})
                 require("mason-lspconfig").setup({
                     ensure_installed = {
@@ -34,15 +18,16 @@ return {
                     },
                     automatic_installation = true,
                     handlers = {
-                        lsp.default_setup,
-                    }
+                        function(server_name) -- default handler (optional)
+                            require("lspconfig")[server_name].setup {}
+                        end,
+                    },
                 })
             end,
         },
         {
             "neovim/nvim-lspconfig",
             config = function()
-                local lsp = require("lsp-zero")
                 require("lspconfig").lua_ls.setup({
                     settings = {
                         Lua = {
@@ -53,7 +38,6 @@ return {
                     },
                 })
                 require("lspconfig").pyright.setup({
-                    on_attach = lsp.on_attach,
                     settings = {
                         python = {
                             analysis = {

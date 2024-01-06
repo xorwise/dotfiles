@@ -10,7 +10,7 @@ return {
             sources = {
                 -- formatting
                 formatting.stylua,
-                formatting.yapf,
+                formatting.black,
                 -- diagnostics
                 diagnostics.mypy.with({
                     extra_args = function()
