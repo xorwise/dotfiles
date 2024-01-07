@@ -1,5 +1,5 @@
 return {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     config = function()
         local null_ls = require("null-ls")
         local formatting = null_ls.builtins.formatting
@@ -10,7 +10,7 @@ return {
             sources = {
                 -- formatting
                 formatting.stylua,
-                formatting.yapf,
+                formatting.black,
                 -- diagnostics
                 diagnostics.mypy.with({
                     extra_args = function()
