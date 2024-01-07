@@ -1,99 +1,113 @@
 return {
-    {
-        {
-            "VonHeikemen/lsp-zero.nvim",
-            lazy = true,
-            config = function()
-                local lsp = require("lsp-zero")
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+			local ls = require("luasnip")
+			vim.keymap.set({ "i" }, "<C-k>", function()
+				ls.expand()
+			end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<C-l>", function()
+				ls.jump(1)
+			end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<C-h>", function()
+				ls.jump(-1)
+			end, { silent = true })
 
-                lsp.preset("recommended")
+			vim.keymap.set({ "i", "s" }, "<C-e>", function()
+				if ls.choice_active() then
+					ls.change_choice(1)
+				end
+			end, { silent = true })
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"williamboman/mason.nvim",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		},
+		config = function()
+			require("mason").setup({})
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"pyright",
+					"clangd",
+					"cssls",
+					"html",
+				},
+				automatic_installation = true,
+				handlers = {
+					function(server_name) -- default handler (optional)
+						require("lspconfig")[server_name].setup({})
+					end,
+				},
+			})
+			require("lspconfig").lua_ls.setup({
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
+			})
+			require("lspconfig").pyright.setup({
+				settings = {
+					python = {
+						analysis = {
+							typeCheckingMode = "off",
+						},
+					},
+				},
+			})
+			local cmp = require("cmp")
 
-                lsp.on_attach(function(client, bufnr)
-                    lsp.default_keymaps({ buffer = bufnr })
-                end)
-            end,
-        },
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+				mapping = cmp.mapping.preset.insert({
+					-- `Enter` key to confirm completion
+					["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-        --- Uncomment these if you want to manage LSP servers from neovim
-        {
-            "williamboman/mason-lspconfig.nvim",
-            dependencies = {
-                "williamboman/mason.nvim",
-            },
-            config = function()
-                local lsp = require("lsp-zero")
-                require("mason").setup({})
-                require("mason-lspconfig").setup({
-                    ensure_installed = {
-                        "pyright",
-                        "clangd",
-                        "cssls",
-                        "eslint",
-                        "html",
-                        "tsserver",
-                    },
-                    automatic_installation = true,
-                    handlers = {
-                        lsp.default_setup,
-                    }
-                })
-            end,
-        },
-        {
-            "neovim/nvim-lspconfig",
-            config = function()
-                local lsp = require("lsp-zero")
-                require("lspconfig").lua_ls.setup({
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { "vim" },
-                            },
-                        },
-                    },
-                })
-                require("lspconfig").pyright.setup({
-                    on_attach = lsp.on_attach,
-                    settings = {
-                        python = {
-                            analysis = {
-                                typeCheckingMode = "off",
-                            },
-                        },
-                    },
-                })
-            end
-        },
-        { "hrsh7th/cmp-nvim-lsp" },
+					-- Ctrl+Space to trigger completion menu
+					["<C-Space>"] = cmp.mapping.complete(),
 
-        {
-            "hrsh7th/nvim-cmp",
-            config = function()
-                local cmp = require('cmp')
-
-                cmp.setup({
-                    mapping = cmp.mapping.preset.insert({
-                        -- `Enter` key to confirm completion
-                        ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
-                        -- Ctrl+Space to trigger completion menu
-                        ['<C-Space>'] = cmp.mapping.complete(),
-
-                        -- Scroll up and down in the completion documentation
-                        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-                        ['<C-d>'] = cmp.mapping.scroll_docs(4),
-                    })
-                })
-            end
-        },
-        { "L3MON4D3/LuaSnip" },
-    },
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts)
-            require("lsp_signature").setup(opts)
-        end,
-    },
+					-- Scroll up and down in the completion documentation
+					["<C-u>"] = cmp.mapping.scroll_docs(-4),
+					["<C-d>"] = cmp.mapping.scroll_docs(4),
+				}),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" }, -- For luasnip users.
+				}, {
+					{ name = "buffer" },
+				}),
+			})
+		end,
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts)
+			require("lsp_signature").setup(opts)
+		end,
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts)
+			require("lsp_signature").setup(opts)
+		end,
+	},
 }

@@ -107,3 +107,21 @@ vim.api.nvim_set_keymap('n', '<C-h>', ':TmuxNavigateLeft<CR>', { noremap = true,
 vim.api.nvim_set_keymap('n', '<C-j>', ':TmuxNavigateDown<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-k>', ':TmuxNavigateUp<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', ':TmuxNavigateRight<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local new_opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, new_opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, new_opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, new_opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, new_opts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, new_opts)
+        vim.lsp.buf.format { async = true }
+    end,
+})
