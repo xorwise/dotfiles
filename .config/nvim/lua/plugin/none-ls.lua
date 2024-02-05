@@ -11,6 +11,7 @@ return {
                 -- formatting
                 formatting.stylua,
                 formatting.black,
+                formatting.gofmt,
                 -- diagnostics
                 diagnostics.mypy.with({
                     extra_args = function()
