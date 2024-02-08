@@ -125,3 +125,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.lsp.buf.format { async = true }
     end,
 })
+
+vim.keymap.set("n", "<leader>rr", ":LspRestart<CR>", { noremap = true, silent = true })
