@@ -21,6 +21,7 @@ return {
                 })
                 ,
                 diagnostics.ruff,
+                diagnostics.golangci_lint,
                 -- code actions
                 code_actions.refactoring,
             },
