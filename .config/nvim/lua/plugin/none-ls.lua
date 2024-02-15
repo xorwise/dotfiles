@@ -9,7 +9,6 @@ return {
         null_ls.setup({
             sources = {
                 -- formatting
-                formatting.stylua,
                 formatting.black,
                 formatting.gofmt,
                 -- diagnostics
@@ -18,8 +17,7 @@ return {
                         local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
                         return { "--python-executable", virtual .. "/bin/python3", "--ignore-missing-imports" }
                     end,
-                })
-                ,
+                }),
                 diagnostics.ruff,
                 diagnostics.golangci_lint,
                 -- code actions
