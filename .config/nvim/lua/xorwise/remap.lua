@@ -27,10 +27,6 @@ map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
 -- Close buffer
 map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
 map("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
-map("n", "<leader>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
-map("n", "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
-map("n", "<leader>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
-map("n", "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
 
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -73,13 +69,7 @@ vim.keymap.set("n", "<leader>ca", function()
     vim.lsp.buf.code_action()
 end)
 
-vim.keymap.set("n", "<leader><leader>", function()
-    if package.config.sub(1, 1) == "\\" then
-        return "!clang++ -o %:r.exe %<CR>"
-    else
-        return "!clang++ -o %:r.out %<CR>"
-    end
-end)
+vim.keymap.set("n", "<leader>b", [[:w<CR>:!clang++ % -o %<.out && ./%<.out<CR>]])
 
 vim.keymap.set("n", "<leader>tc", function()
     require("neotest").run.run()
