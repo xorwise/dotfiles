@@ -46,7 +46,7 @@ vim.keymap.set("n", "<leader>ca", function()
     vim.lsp.buf.code_action()
 end)
 
-vim.keymap.set("n", "<leader>b", [[:w<CR>:!clang++ % -o %<.out && ./%<.out<CR>]])
+vim.keymap.set("n", "<leader>b", [[:w<CR>:!clang++ % -o %<.out && %<.out<CR>]])
 
 vim.keymap.set("n", "<leader>tc", function()
     require("neotest").run.run()
