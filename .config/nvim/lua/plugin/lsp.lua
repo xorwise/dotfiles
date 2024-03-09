@@ -49,11 +49,6 @@ return {
             local cmp = require("cmp")
 
             cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
                 mapping = cmp.mapping.preset.insert({
                     -- `Enter` key to confirm completion
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -64,12 +59,40 @@ return {
                     -- Scroll up and down in the completion documentation
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                 }, {
                     { name = "buffer" },
+                }, {
+                    { name = "path" },
                 }),
+                formatting = {
+                    format = function(entry, vim_item)
+                        -- Source
+                        vim_item.menu = ({
+                            buffer = "[Buffer]",
+                            nvim_lsp = "[LSP]",
+                            nvim_lua = "[Lua]",
+                        })[entry.source.name]
+                        return vim_item
+                    end
+                },
             })
         end,
     },
