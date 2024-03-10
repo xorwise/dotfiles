@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>e", ":NvimTreeFocus<CR>", { noremap = true })
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
 -- Move to previous/next
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
