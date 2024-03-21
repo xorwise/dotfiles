@@ -11,7 +11,11 @@ return {
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
         vim.keymap.set("n", "<C-p>", builtin.git_files, {})
         vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "[G]oto [R]eferences" })
-        vim.keymap.set("n", "/", builtin.current_buffer_fuzzy_find, { noremap = true, silent = true })
+        vim.keymap.set('n', '/', function()
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+                previewer = false,
+            }))
+        end)
         require("telescope").setup({
             defaults = {
                 file_ignore_patterns = {

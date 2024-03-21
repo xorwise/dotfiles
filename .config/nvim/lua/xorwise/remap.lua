@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>e", ":NvimTreeFocus<CR>", { noremap = true })
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
 -- Move to previous/next
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -35,9 +33,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set("n", "<leader>pep", function()
-    vim.lsp.buf.format()
-end)
 vim.keymap.set("n", "<leader>rn", function()
     vim.lsp.buf.rename()
 end)
@@ -78,7 +73,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, new_opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, new_opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, new_opts)
-        vim.lsp.buf.format { async = true }
     end,
 })
 
