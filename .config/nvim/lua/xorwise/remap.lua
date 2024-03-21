@@ -46,7 +46,7 @@ vim.keymap.set("n", "<leader>ca", function()
     vim.lsp.buf.code_action()
 end)
 
-vim.keymap.set("n", "<leader>b", [[:w<CR>:!clang++ % -o %<.out && ./%<.out<CR>]])
+vim.keymap.set("n", "<leader>b", [[:w<CR>:!clang++ % -o %<.out<CR>]])
 
 vim.keymap.set("n", "<leader>tc", function()
     require("neotest").run.run()
@@ -83,3 +83,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.keymap.set("n", "<leader>rr", ":LspRestart<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader><Tab>", ":bp<CR>", { noremap = true, silent = true })
