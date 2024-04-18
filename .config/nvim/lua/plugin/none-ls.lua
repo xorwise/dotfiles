@@ -1,5 +1,8 @@
 return {
     "nvimtools/none-ls.nvim",
+    dependencies = {
+        "nvimtools/none-ls-extras.nvim",
+    },
     config = function()
         local null_ls = require("null-ls")
         local formatting = null_ls.builtins.formatting
@@ -12,6 +15,7 @@ return {
                 formatting.black,
                 formatting.gofmt,
                 formatting.clang_format,
+                formatting.prettierd,
                 -- diagnostics
                 diagnostics.mypy.with({
                     extra_args = function()
@@ -19,7 +23,6 @@ return {
                         return { "--python-executable", virtual .. "/bin/python3", "--ignore-missing-imports" }
                     end,
                 }),
-                diagnostics.ruff,
                 diagnostics.golangci_lint,
                 -- code actions
                 code_actions.refactoring,

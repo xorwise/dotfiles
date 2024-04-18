@@ -2,6 +2,13 @@ return {
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
     {
+        "L3MON4D3/LuaSnip",
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+        },
+        build = "make install_jsregexp"
+    },
+    {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -16,6 +23,7 @@ return {
                     "cssls",
                     "html",
                     "gopls",
+                    "eslint",
                 },
                 automatic_installation = true,
                 handlers = {
@@ -43,8 +51,13 @@ return {
                 },
             })
             local cmp = require("cmp")
-
+            local luasnip = require("luasnip")
             cmp.setup({
+                snippet = {
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end,
+                },
                 mapping = cmp.mapping.preset.insert({
                     -- `Enter` key to confirm completion
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -63,6 +76,8 @@ return {
                     { name = "buffer" },
                 }, {
                     { name = "path" },
+                }, {
+                    { name = "luasnip" },
                 }),
                 formatting = {
                     format = function(entry, vim_item)
