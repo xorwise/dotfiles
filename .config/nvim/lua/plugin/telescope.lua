@@ -1,8 +1,6 @@
 return {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.4",
-    -- or                              , branch = '0.1.x',
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function()
         local telescope = require("telescope")
         telescope.setup({
@@ -45,6 +43,10 @@ return {
         end)
         vim.keymap.set("n", "<leader>nt", function()
             require("telescope").extensions.git_worktree.create_git_worktree()
+        end)
+
+        vim.keymap.set("n", "<leader>e", function()
+            telescope.extensions.file_browser.file_browser()
         end)
     end,
 }
