@@ -76,3 +76,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.keymap.set("n", "<leader>rr", ":LspRestart<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader><Tab>", ":b#<CR>", { noremap = true, silent = true })
+
+
+vim.keymap.set("n", "?", "/", { noremap = true, silent = true })
