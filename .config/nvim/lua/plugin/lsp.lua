@@ -62,23 +62,22 @@ return {
                     -- `Enter` key to confirm completion
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-                    -- Ctrl+Space to trigger completion menu
-                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-l>"] = cmp.mapping.complete(),
                     -- Scroll up and down in the completion documentation
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
                     ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
                     ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                 }),
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                }, {
-                    { name = "buffer" },
-                }, {
-                    { name = "path" },
-                }, {
-                    { name = "luasnip" },
-                }),
+                sources = cmp.config.sources(
+                    {
+                        { name = "nvim_lsp" },
+                        { name = "buffer" },
+                        { name = "codeium" },
+                        { name = "path" },
+                        { name = "luasnip" },
+                    }
+                ),
                 formatting = {
                     format = function(entry, vim_item)
                         -- Source
@@ -86,6 +85,7 @@ return {
                             buffer = "[Buffer]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[Lua]",
+                            codeium = "[Codeium]",
                         })[entry.source.name]
                         return vim_item
                     end
