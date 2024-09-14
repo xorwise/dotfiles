@@ -1,16 +1,10 @@
 return {
     {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local telescope = require("telescope")
             telescope.setup({
-                extensions = {
-                    file_browser = {
-                        hidden = { file_browser = false, folder_browser = false },
-                        respect_gitignore = false,
-                    }
-                },
                 defaults = {
                     file_ignore_patterns = {
                         "node_modules",
@@ -42,12 +36,6 @@ return {
                 builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
                     previewer = false,
                 }))
-            end)
-
-
-
-            vim.keymap.set("n", "<leader>e", function()
-                telescope.extensions.file_browser.file_browser()
             end)
         end,
     },

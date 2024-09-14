@@ -72,10 +72,6 @@ return {
                 sources = cmp.config.sources(
                     {
                         { name = "nvim_lsp" },
-                        { name = "buffer" },
-                        { name = "codeium" },
-                        { name = "path" },
-                        { name = "luasnip" },
                     }
                 ),
                 formatting = {
@@ -85,7 +81,6 @@ return {
                             buffer = "[Buffer]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[Lua]",
-                            codeium = "[Codeium]",
                         })[entry.source.name]
                         return vim_item
                     end
