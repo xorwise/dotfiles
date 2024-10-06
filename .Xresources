@@ -1,0 +1,5 @@
+XTerm.vt100.reverseVideo: true
+! special
+*.foreground: #dcd7ba
+*.background: #1f1f28
+*.cursorColor: #dcd7ba
