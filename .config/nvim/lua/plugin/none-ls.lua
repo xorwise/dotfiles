@@ -15,6 +15,7 @@ return {
                 formatting.black,
                 formatting.gofmt,
                 formatting.clang_format,
+                formatting.mdformat,
                 -- diagnostics
                 diagnostics.mypy.with({
                     extra_args = function()

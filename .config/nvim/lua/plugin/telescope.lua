@@ -5,6 +5,16 @@ return {
         config = function()
             local telescope = require("telescope")
             telescope.setup({
+                vimgrep_arguments = {
+                    'rg',
+                    '--color=never',
+                    '--no-heading',
+                    '--with-filename',
+                    '--line-number',
+                    '--column',
+                    '--smart-case', -- Enables case-insensitive unless there are uppercase letters
+                    '--unicode'     -- Ensures Unicode-aware searching
+                },
                 defaults = {
                     file_ignore_patterns = {
                         "node_modules",
