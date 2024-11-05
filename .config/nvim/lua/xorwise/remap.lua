@@ -39,22 +39,6 @@ vim.keymap.set("n", "<leader>ca", function()
     vim.lsp.buf.code_action()
 end)
 
-vim.keymap.set("n", "<leader>b", function()
-    if vim.bo.filetype == "cpp" or vim.bo.filetype == "cc" then
-        if package.config:sub(1, 1) == "\\" then
-            return "clang++ -o %.exe:r %"
-        else
-            return "clang++ -o %.out %"
-        end
-    elseif vim.bo.filetype == "c" then
-        if package.config:sub(1, 1) == "\\" then
-            return "clang -o %.exe:r %"
-        else
-            return "clang -o %.out %"
-        end
-    end
-end)
-
 vim.keymap.set("n", "<leader>tc", function()
     require("neotest").run.run()
 end)
