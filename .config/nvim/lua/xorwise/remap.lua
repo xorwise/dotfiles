@@ -18,9 +18,6 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
-vim.keymap.set("n", "gd", function()
-    vim.lsp.buf.definition()
-end)
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -30,14 +27,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
-vim.keymap.set("n", "<leader>rn", function()
-    vim.lsp.buf.rename()
-end)
-vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
-vim.keymap.set("n", "<leader>ca", function()
-    vim.lsp.buf.code_action()
-end)
 
 vim.keymap.set("n", "<leader>tc", function()
     require("neotest").run.run()
@@ -77,3 +66,19 @@ vim.keymap.set("n", "<leader><Tab>", ":b#<CR>", { noremap = true, silent = true 
 
 
 vim.keymap.set("n", "?", "/", { noremap = true, silent = true })
+
+-- LSP remaps
+vim.keymap.set("n", "gd", function()
+    vim.lsp.buf.definition()
+end)
+vim.keymap.set("n", "<leader>ca", function()
+    vim.lsp.buf.code_action()
+end)
+
+vim.keymap.set("n", "<leader>rn", function()
+    vim.lsp.buf.rename()
+end)
+
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<CR>", { desc = "[G]oto [R]eferences" })
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
