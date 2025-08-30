@@ -194,5 +194,5 @@ exec setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle"
 client.focused #e6c384 #e6c384 #e6c384 #e6c384
 
 
-bindsym $mod+Control+h workspace prev
-bindsym $mod+Control+l workspace next
+bindsym $mod+Control+k workspace prev
+bindsym $mod+Control+j workspace next
