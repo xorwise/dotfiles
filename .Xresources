@@ -3,3 +3,5 @@ XTerm.vt100.reverseVideo: true
 *.foreground: #dcd7ba
 *.background: #1f1f28
 *.cursorColor: #dcd7ba
+Xft.dpi: 120
+

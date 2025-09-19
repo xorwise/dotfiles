@@ -77,3 +77,26 @@ end)
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
 vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<CR>", { desc = "[G]oto [R]eferences" })
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
+
+-- Go.nvim remaps
+-- Go.nvim keymaps with "go<key>" format
+-- put inside your keymap config after setting up go.nvim
+
+local opts = { silent = true }
+
+vim.keymap.set("n", "<leader>ga", "<cmd>GoAddTag<CR>", opts)
+vim.keymap.set("n", "<leader>gi", "<cmd>GoImpl<CR>", opts) -- implement interface
+vim.keymap.set("n", "<leader>gt", "<cmd>GoTestFunc<CR>", opts) -- test current func
+vim.keymap.set("n", "<leader>gT", "<cmd>GoTest<CR>", opts) -- test package
+vim.keymap.set("n", "<leader>gr", "<cmd>GoRun<CR>", opts) -- run main.go
+vim.keymap.set("n", "<leader>gb", "<cmd>GoBuild<CR>", opts) -- go build
+vim.keymap.set("n", "<leader>gf", "<cmd>GoFmt<CR>", opts) -- format file
+vim.keymap.set("n", "<leader>gs", "<cmd>GoFillStruct<CR>", opts) -- fill struct fields
+vim.keymap.set("n", "<leader>ge", "<cmd>GoIfErr<CR>", opts) -- add if err
+vim.keymap.set("n", "<leader>gc", "<cmd>GoCmt<CR>", opts) -- generate comments
+vim.keymap.set("n", "<leader>gd", "<cmd>GoDoc<CR>", opts) -- godoc under cursor
+
+-- Debugging (if you enabled DAP integration in go.nvim)
+vim.keymap.set("n", "<leader>dl", "<cmd>GoDebug -l<CR>", opts) -- debug last test
+vim.keymap.set("n", "<leader>dt", "<cmd>GoDebug -t<CR>", opts) -- debug nearest test
+vim.keymap.set("n", "<leader>dm", "<cmd>GoDebug -m<CR>", opts) -- debug main.go
